@@ -18,11 +18,11 @@ class PlantError(GardenError):
             self.args = (f"The {plant} plant {problem}!",)
 
 
-# another thing that should be an enum,
-# but alas,
-class TankProblem:
-    VAL_ERR: int = 0
-    ZERO_DIV: int = 1
+class WaterError(GardenError):
+    _default_message = "Not enough water in the tank!"
+
+    def __init__(self, message: str | None = None) -> None:
+        self.args = (message if message is not None else self._default_message,)
 
 
 class Plant:
@@ -43,36 +43,62 @@ class WaterTank:
         return self.level_liters >= required_liters
 
 
-def caught_error(func, e: Exception) -> None:
-    print(f"Caught {func.__name__} error: {e}")
+def caught_error(e: Exception) -> None:
+    print(f"Caught {e.__class__.__name__}: {e}")
 
 
 def test_plant_error() -> None:
     tomato = Plant("tomato", hours_since_watered=48)
-    if tomato.is_wilting is True:
+    if tomato.is_wilting() is True:
         raise PlantError("tomato", "is wiltering")
+    print("")
 
 
 def test_water_error() -> None:
     tank = WaterTank(level_liters=0.5, capacity_liters=20.0)
     required_liters = 5.0
+    if tank.has_enough(required_liters) is False:
+        raise (WaterError)
+    print("")
 
 
 def test_garden_error() -> None:
-    tomato = Plant("tomato", hours_since_watered=48)
-    tank = WaterTank(level_liters=0.5, capacity_liters=20.0)
-    required_liters = 5.0
+    try:
+        test_plant_error()
+    except GardenError as ge:
+        caught_error(ge)
+    try:
+        test_water_error()
+    except GardenError as ge:
+        caught_error(ge)
 
 
 def main() -> None:
     print_header("Custom harden Errors Demo")
 
-    test_plant_error()
+    print_test_header(PlantError.__name__)
+    try:
+        test_plant_error()
+    except PlantError as pe:
+        caught_error(pe)
+    print("")
+
+    print_test_header(WaterError.__name__)
+    try:
+        test_water_error()
+    except WaterError as we:
+        caught_error(we)
+    print("")
+
+    print_test_header("all garden errors")
+    test_garden_error()
 
     print_footer("All custom error types work correctly")
 
-def print_test_msg(test:str) ->:
-    
+
+def print_test_header(error: str) -> None:
+    print(f"Testing {error}...")
+
 
 def print_header(title: str) -> None:
     print(f"=== {title} ===")
