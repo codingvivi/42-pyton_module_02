@@ -13,6 +13,7 @@ class Plant:
 # should be an enum
 # but enum isn't a builtin
 # only a stdlib one
+# and i am scared of norminette
 class GardenOpTest:
     VAL_ERR: int = 0
     ZERO_DIV: int = 1

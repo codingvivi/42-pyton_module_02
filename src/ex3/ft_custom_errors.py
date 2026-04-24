@@ -1,17 +1,28 @@
 class GardenError(Exception):
-    def __init__(self, message: str = "Unkown plant error") -> None:
-        self.args = (message,)
+    _default_message = "Unkown plant error"
+
+    def __init__(self, message: str | None = None) -> None:
+        self.args = (message if message is not None else self._default_message,)
 
 
 class PlantError(GardenError):
-    def __init__(self, plant: str | None , problem: str | None) -> None:
-        if plant is None or problem is None:
-        super().__init__()
-    pass
+    def __init__(self, plant: str | None = None, problem: str | None = None) -> None:
+
+        # XOR
+        if (plant is None) != (problem is None):
+            raise TypeError("Plant error requires both plant and problem (or neither default msg)")
+        # plant and problem must both be true or false at this point, so only checking plant is fine
+        if plant is None:
+            self.args = (self._default_message,)
+        else:
+            self.args = (f"The {plant} plant {problem}!",)
 
 
-class WaterError(GardenError):
-    pass
+# another thing that should be an enum,
+# but alas,
+class TankProblem:
+    VAL_ERR: int = 0
+    ZERO_DIV: int = 1
 
 
 class Plant:
@@ -37,29 +48,31 @@ def caught_error(func, e: Exception) -> None:
 
 
 def test_plant_error() -> None:
-    # scenario: a tomato plant has not been watered for too long and is wilting
     tomato = Plant("tomato", hours_since_watered=48)
-
-    if tomato.is_wilting is True
-    raise PlantError(f"The")
+    if tomato.is_wilting is True:
+        raise PlantError("tomato", "is wiltering")
 
 
 def test_water_error() -> None:
-    # scenario: the water tank is almost empty and cannot cover the round
     tank = WaterTank(level_liters=0.5, capacity_liters=20.0)
     required_liters = 5.0
 
 
 def test_garden_error() -> None:
-    # both of the above conditions are present in the garden at once
     tomato = Plant("tomato", hours_since_watered=48)
     tank = WaterTank(level_liters=0.5, capacity_liters=20.0)
     required_liters = 5.0
 
 
 def main() -> None:
-    test_garden_error()
+    print_header("Custom harden Errors Demo")
 
+    test_plant_error()
+
+    print_footer("All custom error types work correctly")
+
+def print_test_msg(test:str) ->:
+    
 
 def print_header(title: str) -> None:
     print(f"=== {title} ===")
