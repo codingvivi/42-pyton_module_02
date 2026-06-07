@@ -8,15 +8,22 @@ dependencies = []
 dev = [
     "mypy",
     "ruff",
+    "flake8>=7.3.0",
 ]
 
 [tool.ruff]
-line-length = 100
+line-length = 79
 src = ["src"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP", "B", "SIM"]
+select = ["E", "W", "F", "I", "UP", "B", "SIM"]
 
 [tool.mypy]
 strict = true
 files = ["src"]
+
+# ex2 deliberately raises a TypeError by mixing int + str (per the subject:
+# "we need to keep this error on purpose"). Silence just that file.
+[[tool.mypy.overrides]]
+module = "ft_different_errors"
+disable_error_code = ["assignment", "operator"]

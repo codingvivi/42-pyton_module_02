@@ -8,7 +8,7 @@ def water_plant(plant_name: str) -> None:
     print(f"Watering {plant_name}: {GREEN}[OK]{RESET}")
 
 
-def test_watering_system(*args) -> None:
+def test_watering_system(*args: str) -> None:
     print("Opening watering system")
     try:
         for a in args:

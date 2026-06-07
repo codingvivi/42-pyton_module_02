@@ -22,7 +22,7 @@ def garden_operations(operation_number: int) -> None:
             case GardenOpTest.ZERO_DIV:
                 print(1 / 0)
             case GardenOpTest.FILE_NOT_FOUND:
-                open("asfasdfasdf")
+                open("asfasdfasdf")  # noqa: SIM115
             case GardenOpTest.TYPE_ERR:
                 string: str = "a"
                 num: int = 1

@@ -8,8 +8,8 @@ class GardenTempError(ValueError):
             raise ValueError("bound must be 'min' or 'max'")
 
 
-def caught_error(func, e: Exception) -> None:
-    print(f"Caught {func.__name__} error: {e}")
+def caught_error(e: Exception) -> None:
+    print(f"Caught {input_temperature.__name__} error: {e}")
 
 
 def input_temperature(temp_str: str) -> int:
@@ -28,7 +28,7 @@ def test_temperature() -> None:
         try:
             input_temperature(data)
         except Exception as e:
-            caught_error(input_temperature, e)
+            caught_error(e)
         print("")
 
     print("=== Garden Temperature ===")

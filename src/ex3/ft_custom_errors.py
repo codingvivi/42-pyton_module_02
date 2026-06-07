@@ -2,16 +2,24 @@ class GardenError(Exception):
     _default_message = "Unkown plant error"
 
     def __init__(self, message: str | None = None) -> None:
-        self.args = (message if message is not None else self._default_message,)
+        self.args = (
+            message if message is not None else self._default_message,
+        )
 
 
 class PlantError(GardenError):
-    def __init__(self, plant: str | None = None, problem: str | None = None) -> None:
+    def __init__(
+        self, plant: str | None = None, problem: str | None = None
+    ) -> None:
 
         # XOR
         if (plant is None) != (problem is None):
-            raise TypeError("Plant error requires both plant and problem (or neither default msg)")
-        # plant and problem must both be true or false at this point, so only checking plant is fine
+            raise TypeError(
+                "Plant error requires both plant and problem "
+                "(or neither default msg)"
+            )
+        # plant and problem must both be true or false at this point,
+        # so only checking plant is fine
         if plant is None:
             self.args = (self._default_message,)
         else:
@@ -22,7 +30,9 @@ class WaterError(GardenError):
     _default_message = "Not enough water in the tank!"
 
     def __init__(self, message: str | None = None) -> None:
-        self.args = (message if message is not None else self._default_message,)
+        self.args = (
+            message if message is not None else self._default_message,
+        )
 
 
 class Plant:
