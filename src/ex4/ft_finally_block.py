@@ -6,8 +6,8 @@ class GardenError(Exception):
     _default_message = "Unknown garden error"
 
     def __init__(self, message: str | None = None) -> None:
-        self.args = (
-            message if message is not None else self._default_message,
+        super().__init__(
+            message if message is not None else self._default_message
         )
 
 

@@ -1,9 +1,9 @@
 class GardenTempError(ValueError):
-    def __init__(self, temp: int, bound: str):
+    def __init__(self, temp: int, bound: str) -> None:
         if bound == "max":
-            self.args = (f"{temp}°C is too hot for plants (max 40°C)",)
+            super().__init__(f"{temp}°C is too hot for plants (max 40°C)")
         elif bound == "min":
-            self.args = (f"{temp}°C is too cold for plants (min 0°C)",)
+            super().__init__(f"{temp}°C is too cold for plants (min 0°C)")
         else:
             raise ValueError("bound must be 'min' or 'max'")
 

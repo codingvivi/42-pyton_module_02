@@ -48,7 +48,8 @@ dist tag="":
 
 # rsync turnin files
 [group('dist')]
-stage:
+stage: 
+    rm -rf {{stage-dir}}
     mkdir -p {{stage-dir}}
     rsync -vhacP --filter=':- .gitignore' src/ {{stage-dir}}/
 
@@ -61,7 +62,7 @@ tag name msg:
 
 # type-check + style
 [group('dist')]
-checks-dist:
+checks-dist: 
     just test-mypy
     just test-lint
     @printf '\033[1;32m✓ all checks passed! Ready for submission\n\033[0m\n'
