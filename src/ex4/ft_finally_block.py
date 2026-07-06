@@ -2,9 +2,22 @@ GREEN = "\033[32m"
 RESET = "\033[0m"
 
 
+class GardenError(Exception):
+    _default_message = "Unknown garden error"
+
+    def __init__(self, message: str | None = None) -> None:
+        self.args = (
+            message if message is not None else self._default_message,
+        )
+
+
+class PlantError(GardenError):
+    _default_message = "Unknown plant error"
+
+
 def water_plant(plant_name: str) -> None:
     if ("A" <= plant_name[0] <= "Z") is False:
-        raise ValueError(f"Invalid plant name to water {plant_name}")
+        raise PlantError(f"Invalid plant name to water: '{plant_name}'")
     print(f"Watering {plant_name}: {GREEN}[OK]{RESET}")
 
 
@@ -13,9 +26,9 @@ def test_watering_system(*args: str) -> None:
     try:
         for a in args:
             water_plant(a)
-    except Exception as e:
+    except PlantError as e:
         caught_error(e)
-        print("..ending tests and returning to main")
+        print(".. ending tests and returning to main")
     finally:
         print("Closing watering system")
         print("")
@@ -28,7 +41,7 @@ def main() -> None:
     test_watering_system("Tomato", "Lettuce", "Carrots")
 
     print_test_header("invalid plants")
-    test_watering_system("tomato", "lettuce", "carrots")
+    test_watering_system("Tomato", "lettuce", "carrots")
 
     print("Cleanup always happens, even with errors!")
 

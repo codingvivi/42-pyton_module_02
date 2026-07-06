@@ -44,7 +44,7 @@ def test_error_types() -> None:
     garden_operations(GardenOpTest.TYPE_ERR)
     garden_operations(GardenOpTest.NO_ERR)
 
-    print_footer("All error types tested sucessfully")
+    print_footer("All error types tested successfully!")
 
 
 def print_header(title: str) -> None:

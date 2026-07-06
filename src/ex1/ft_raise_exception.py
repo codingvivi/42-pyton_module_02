@@ -18,7 +18,7 @@ def input_temperature(temp_str: str) -> int:
         raise GardenTempError(temp, "min")
     if temp > 40:
         raise GardenTempError(temp, "max")
-    print(f"Temperature is now {temp}C")
+    print(f"Temperature is now {temp}°C")
     return temp
 
 

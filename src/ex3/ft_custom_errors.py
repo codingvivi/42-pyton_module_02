@@ -1,5 +1,5 @@
 class GardenError(Exception):
-    _default_message = "Unkown plant error"
+    _default_message = "Unknown plant error"
 
     def __init__(self, message: str | None = None) -> None:
         self.args = (
@@ -60,7 +60,7 @@ def caught_error(e: Exception) -> None:
 def test_plant_error() -> None:
     tomato = Plant("tomato", hours_since_watered=48)
     if tomato.is_wilting() is True:
-        raise PlantError("tomato", "is wiltering")
+        raise PlantError("tomato", "is wilting")
     print("")
 
 
@@ -84,7 +84,7 @@ def test_garden_error() -> None:
 
 
 def main() -> None:
-    print_header("Custom harden Errors Demo")
+    print_header("Custom Garden Errors Demo")
 
     print_test_header(PlantError.__name__)
     try:

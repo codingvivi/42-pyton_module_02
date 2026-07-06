@@ -1,6 +1,6 @@
 def input_temperature(temp_str: str) -> int:
     temp: int = int(temp_str)
-    print(f"Temperature is now {temp}C")
+    print(f"Temperature is now {temp}°C")
     return temp
 
 
